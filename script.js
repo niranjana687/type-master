@@ -27,5 +27,47 @@ words = quote.split(' ');
 
 const spanWords = words.map(function(word) {return `<span>${word} </span>`});
 quoteElement.innerHTML = spanWords.join(' ');
+//highlight the word
+quoteElement.childNodes[0].className = 'highlight';
+//clear any prior messages
+messageElement.innerText = '';
+//setup the textbox
+//clear the textbox
+typedValueElement.innerText = '';
+//set focus
+typedValueElement.focus();
+//set event handler
+//start the timer
+startTime = new Date.getTime();
 });
+
+typedValueElement.addEventListener('input', () => {
+    const currentWord = words[wordIndex];
+    const typedValue = typedValueElement.value;
+
+    if (typedValue === currentWord && wordIndex === words.length-1) {
+        const elapsedTime = new Date().getTime() - startTime;
+        const message = `Congratulations, you finished in ${elapsedTime/1000} seconds`;
+        message.innerText = message;
+    } else if (typedValue.endsWith() === ' ' && typedValue.trim() === currentWord) {
+        typedValueElement.value = ' ';
+        wordIndex++;
+        wordIndex++;
+        
+    // reset the class name for all elements in quote
+    for (const wordElement of quoteElement.childNodes) {
+      wordElement.className = '';
+    }
+    // highlight the new word
+    quoteElement.childNodes[wordIndex].className = 'highlight';
+  } else if (currentWord.startsWith(typedValue)) {
+    // currently correct
+    // highlight the next word
+    typedValueElement.className = '';
+  } else {
+    // error state
+    typedValueElement.className = 'error';
+  
+    }
+})
 
